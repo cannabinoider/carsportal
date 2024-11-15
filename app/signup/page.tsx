@@ -5,21 +5,22 @@ import { TextField } from "@mui/material";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import truckImage from "@/public/Images/truck2.svg";
 
-export default function Home() {
+export default function Signup() {
   const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(false);
   const [helperText, setHelperText] = useState("");
 
-  const handleLogin = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSignup = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (!username || !password) {
+    if (!username || !email || !password) {
       setError(true);
-      setHelperText("Please fill in both fields");
+      setHelperText("Please fill in all fields");
     } else {
       setError(false);
       setHelperText("");
-      alert("Logged in successfully (Demo)");
+      alert("Signed up successfully (Demo)");
     }
   };
 
@@ -29,9 +30,9 @@ export default function Home() {
         
         <Image src={truckImage} height={80} width={80} alt="Logo" />
         <h1 className="text-3xl font-semibold text-gray-800">Cars Portal</h1>
-        <h2 className="text-xl font-medium text-gray-600">Login</h2>
+        <h2 className="text-xl font-medium text-gray-600">Sign Up</h2>
 
-        <form onSubmit={handleLogin} className="w-full space-y-4">
+        <form onSubmit={handleSignup} className="w-full space-y-4">
           <TextField
             required
             label="User Name"
@@ -40,6 +41,27 @@ export default function Home() {
             value={username}
             onChange={(e) => {
               setUsername(e.target.value);
+              setHelperText("");
+              setError(false);
+            }}
+            error={error}
+            helperText={error ? helperText : ""}
+            sx={{
+              "& .MuiOutlinedInput-root": {
+                borderRadius: "10px",
+              },
+            }}
+          />
+
+          <TextField
+            required
+            label="Email"
+            type="email"
+            variant="outlined"
+            fullWidth
+            value={email}
+            onChange={(e) => {
+              setEmail(e.target.value);
               setHelperText("");
               setError(false);
             }}
@@ -77,17 +99,18 @@ export default function Home() {
             type="submit"
             className="flex items-center justify-center w-full p-3 text-white bg-black rounded-2xl font-semibold hover:bg-gray-900 transition duration-150"
           >
-            Sign In
+            Sign Up
             <ArrowForwardIosIcon className="ml-2 scale-75" />
           </button>
         </form>
+
         <div className="text-sm text-gray-500 hover:underline cursor-pointer">
-        <p className="">
-          Don&apos;t have an account?{" "}
-          <a href="/signup" className="text-gray-700">
-            Create one here
-          </a>
-        </p>
+          <p className="">
+            Already have an account?{" "}
+            <a href="/login" className="text-gray-700">
+              Log in here
+            </a>
+          </p>
         </div>
       </div>
     </div>
